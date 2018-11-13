@@ -1,3 +1,5 @@
+//Eoghan McDermott - 15345451
+
 import java.nio.ByteBuffer;
 
 public class Board {
