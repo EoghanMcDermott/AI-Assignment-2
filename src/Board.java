@@ -1,37 +1,35 @@
 //Eoghan McDermott - 15345451
 
-import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 public class Board {
 
-    private long[] positions;
+    private ArrayList<Long> positions;
     private long currPosition;
 
     public Board()
     {
-        positions = new long[100]; //arbitrary length - will change later
+        positions = new ArrayList<>(); //array list so don't need to fix size
 
+        positions.add(0b0L);
         //clear board with no depth charges
-        positions[0] = 0000000_0000000_0000000_0000000_0000000_0000000_0000001;
-        //sign bit, then top to bottom right to left as java is big endian
+
+        positions.add(0b1L);
+        //board with 1 depth charge in corner
+
+        positions.add(positions.get(1) << 1  );
+        //board with 1 depth charge 2 squares in
 
 
-        currPosition = positions[0];
+
     }
 
     public String printPosition()
     {
         String str = "";
-        final ByteBuffer buffer = ByteBuffer.allocate(50);
-        buffer.putLong(currPosition);
-        System.out.println(buffer.get());
 
-        for(int i=0;i<50;i++)
-        {
-            //add each row to str
-            System.out.println(i+1 + " bit: " + buffer.get(i));
-
-        }
+        for(Long pos : positions)
+            System.out.println(Long.toBinaryString(pos));
 
 
         return str;
