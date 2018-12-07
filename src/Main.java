@@ -6,7 +6,7 @@ public class Main {
     {
         Board board = new Board();
 
-        //board.play();
+        board.play();
 
         int a = 0b001;
         int b = 0b100;

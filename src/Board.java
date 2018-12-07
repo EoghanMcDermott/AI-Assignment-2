@@ -122,10 +122,12 @@ public class Board {
             return valid;
         }
 
-        String[] move = input.split(" ");//an array to store - inefficient?
+        int start = toInt(input.substring(0,1));
+        int finish = toInt(input.substring(3,4));
+        int depth = toInt(input.substring(6,7));
 
         //now to check if a surfer is at the position so they can be moved
-        if(!positionOccupied(move[0], currPlayerPosition))
+        if(!positionOccupied(start, currPlayerPosition))
         //!positionOccupied as we want a surfer to be there
         {
             System.out.println("ERROR: NO SURFER AT THIS POSITION TO MOVE");
@@ -173,22 +175,24 @@ public class Board {
         return position;
     }
 
-    private boolean positionOccupied(String input, int position)
-    {//can a piece be placed at a given position, 0 if position unoccupied
+    private boolean positionOccupied(int input, int position)
+    {//can a piece be placed at a given position
         boolean valid = true;
 
-        int newPosition = toInt(input);
-
-        if((newPosition & position) == 0)
+        if((input & position) == 0)//AND returns 0 if square unoccupied
             valid = false;
 
         return valid;
     }
 
-    private boolean straightLine(String start, String finish, int position)
+    private boolean straightLine(int start, int finish, int position)
     {
         boolean straight = true;
 
+        //straight line 3 squares in any direction
+        //shift 1,2,3 for 1,2,3 horizontal
+        //shift 7,13,19 for 1,2,3 diagonal
+        //shift 5,10,15 for 1,2,3 vertical
 
         return straight;
     }
