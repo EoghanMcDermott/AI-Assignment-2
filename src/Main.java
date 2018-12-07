@@ -6,9 +6,13 @@ public class Main {
     {
         Board board = new Board();
 
-        System.out.println(board.printBoard());
-//        System.out.println(board.totalPositions());
-//
-//        board.printPosition();
+        //board.play();
+
+        int a = 0b001;
+        int b = 0b100;
+
+        int c = a&b;
+
+        System.out.println(c);
     }
 }
