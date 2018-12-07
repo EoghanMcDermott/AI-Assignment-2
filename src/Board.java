@@ -95,16 +95,18 @@ public class Board {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        inputValid(input);//check if valid input
+        if(inputValid(input))//check if valid input
+        {
+            System.out.println("TURN OVER");
 
+            p1Turn = !p1Turn;//swap players
 
-        System.out.println("TURN OVER");
-        p1Turn = !p1Turn;//swap players
-
-        if(!p1Turn)
-            currPlayerPosition=player2Pos;
-        else
-            currPlayerPosition=player1Pos;//keep track of current player's position
+            if (!p1Turn)
+                currPlayerPosition = player2Pos;
+            else
+                currPlayerPosition = player1Pos;
+            //keep track of new current player's position
+        }
     }
 
     private boolean inputValid(String input)
@@ -133,6 +135,13 @@ public class Board {
             System.out.println("ERROR: NO SURFER AT THIS POSITION TO MOVE");
             valid = false;
             return valid;
+        }
+
+        //check if move is a straight line
+        if(!straightLine(start,finish))
+        {
+            System.out.println("ERROR: MOVE IS NOT IN A STRAIGHT LINE");
+            valid = false;
         }
 
 
@@ -185,15 +194,65 @@ public class Board {
         return valid;
     }
 
-    private boolean straightLine(int start, int finish, int position)
+    private boolean straightLine(int start, int finish)
     {
-        boolean straight = true;
+        boolean straight = false;
 
         //straight line 3 squares in any direction
         //shift 1,2,3 for 1,2,3 horizontal
         //shift 7,13,19 for 1,2,3 diagonal
         //shift 5,10,15 for 1,2,3 vertical
+        if(start << 1 == finish)
+            straight = true;
+        else if(start << 2 == finish)
+            straight = true;
+        else if(start << 3 == finish)
+            straight = true;
+
+        if(start >> 1 == finish)
+            straight = true;
+        else if(start >> 2 == finish)
+            straight = true;
+        else if(start >> 3 == finish)
+            straight = true;
+        //horizontal checks complete
+
+        if(start << 7 == finish)
+            straight = true;
+        else if(start << 13 == finish)
+            straight = true;
+        else if(start << 19 == finish)
+            straight = true;
+
+        if(start >> 7 == finish)
+            straight = true;
+        else if(start >> 13 == finish)
+            straight = true;
+        else if(start >> 19 == finish)
+            straight = true;
+        //diagonal checks complete
+
+        if(start << 5 == finish)
+            straight = true;
+        else if(start << 10 == finish)
+            straight = true;
+        else if(start << 15 == finish)
+            straight = true;
+
+        if(start >> 5 == finish)
+            straight = true;
+        else if(start >> 10 == finish)
+            straight = true;
+        else if(start >> 15 == finish)
+            straight = true;
+        //vertical checks complete
 
         return straight;
     }
+
+    private boolean moveValid(int start, int finish)
+    {
+        boolean valid = false;
+    }
+
 }
