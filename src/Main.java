@@ -6,8 +6,9 @@ public class Main {
     {
         Board board = new Board();
 
-        board.printPosition();
-
-
+        System.out.println(board.printBoard());
+//        System.out.println(board.totalPositions());
+//
+//        board.printPosition();
     }
 }

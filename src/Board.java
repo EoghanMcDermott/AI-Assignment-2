@@ -4,34 +4,68 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private ArrayList<Long> positions;
-    private long currPosition;
+    private ArrayList<Integer> possiblePositions;
+    private int depthCharges,player1Pos,player2Pos,currPosition;
 
     public Board()
     {
-        positions = new ArrayList<>(); //array list so don't need to fix size
+        depthCharges = 0b00000_00000_00000_00000_00000;//no charges initially
 
-        positions.add(0b0L);
-        //clear board with no depth charges
+        player1Pos = 0b00000_00000_00000_00001_00010;//starts bottom right
 
-        positions.add(0b1L);
-        //board with 1 depth charge in corner
+        player2Pos = 0b01000_10000_00000_00000_00000;//starts top left
 
-        positions.add(positions.get(1) << 1  );
-        //board with 1 depth charge 2 squares in
-
-
+        currPosition = player1Pos | player2Pos;
 
     }
 
-    public String printPosition()
+    private String padZeroes(String input)
     {
-        String str = "";
+        String output = input;
 
-        for(Long pos : positions)
-            System.out.println(Long.toBinaryString(pos));
+        while (output.length() < 25)
+            output = "0" + output;
+
+        return output;
+    }
+
+    public String printBoard()
+    {
+        String p1 = Integer.toBinaryString(player1Pos).replace("1", "#");
+        String p2 = Integer.toBinaryString(player2Pos);
+        String dc = Integer.toBinaryString(depthCharges);
+        //surfer and depth charge positions positions
+
+        p1 = padZeroes(p1);
+        p2 = padZeroes(p2);
+        dc = padZeroes(dc);
+        //pad with extra zeroes so that
 
 
-        return str;
+        StringBuilder boardBuilder = new StringBuilder(p1);
+        //only represents player 1's position currently
+
+        //now need to add in player 2 and depth charges
+        //replace 1's in binary string with appropriate token
+        for(int i=0;i<25;i++)
+        {
+            if(p2.substring(i,i+1).equals("1"))
+                boardBuilder.setCharAt(i,'@');
+
+            if(dc.substring(i,i+1).equals("1"))
+                boardBuilder.setCharAt(i,'x');
+        }
+
+        String board = boardBuilder.toString();
+        //now break it up into 5x5
+        board = "5-" + board.substring(0,5) + "\n" +
+                "4-" + board.substring(5,10) + "\n" +
+                "3-" + board.substring(10,15) + "\n" +
+                "2-" + board.substring(15,20) + "\n" +
+                "1-" + board.substring(20) + "\n" +
+                "  ABCDE";
+
+
+        return board;
     }
 }
